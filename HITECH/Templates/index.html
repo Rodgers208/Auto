@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Website Building Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .tab {
+            padding: 12px 24px;
+            background: #f8f9fa;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .tab.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .tab:hover {
+            transform: translateY(-1px);
+        }
+        
+        .content {
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        .content.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .checklist {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+        
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            margin: 1rem 0;
+            padding: 0.5rem;
+            border-radius: 8px;
+            transition: background 0.3s ease;
+        }
+        
+        .checklist-item:hover {
+            background: rgba(102, 126, 234, 0.1);
+        }
+        
+        .checklist-item input[type="checkbox"] {
+            margin-right: 12px;
+            margin-top: 4px;
+            transform: scale(1.2);
+        }
+        
+        .checklist-item.completed {
+            opacity: 0.7;
+            text-decoration: line-through;
+        }
+        
+        .tech-stack {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .tech-option {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+        
+        .tech-option:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            border-color: #667eea;
+        }
+        
+        .tech-option.selected {
+            border-color: #667eea;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+        }
+        
+        .tech-option h3 {
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+        
+        .pros-cons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .pros, .cons {
+            font-size: 0.9rem;
+        }
+        
+        .pros h4 {
+            color: #27ae60;
+            margin-bottom: 0.5rem;
+        }
+        
+        .cons h4 {
+            color: #e74c3c;
+            margin-bottom: 0.5rem;
+        }
+        
+        .performance-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        .metric {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .metric-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e9ecef;
+            border-radius: 4px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 4px;
+            transition: width 1s ease;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+                margin: 10px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .tabs {
+                flex-direction: column;
+            }
+            
+            .tab {
+                text-align: center;
+            }
+            
+            .pros-cons {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Business Website Building Guide</h1>
+        
+        <div class="tabs">
+            <button class="tab active" onclick="showTab('planning')">Planning</button>
+            <button class="tab" onclick="showTab('tech-stack')">Tech Stack</button>
+            <button class="tab" onclick="showTab('development')">Development</button>
+            <button class="tab" onclick="showTab('performance')">Performance</button>
+            <button class="tab" onclick="showTab('launch')">Launch</button>
+        </div>
+
+        <div id="planning" class="content active">
+            <h2>🎯 Planning & Strategy</h2>
+            <div class="checklist">
+                <h3>Business Requirements Checklist</h3>
+                <div class="checklist-item">
+                    <input type="checkbox" id="target-audience" onchange="updateProgress()">
+                    <label for="target-audience"><strong>Define target audience:</strong> Who are your customers? What devices do they use? What are their pain points?</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="business-goals" onchange="updateProgress()">
+                    <label for="business-goals"><strong>Set clear business goals:</strong> Lead generation, sales, brand awareness, customer support, etc.</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="content-strategy" onchange="updateProgress()">
+                    <label for="content-strategy"><strong>Content strategy:</strong> What pages do you need? What's your content update frequency?</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="competitors" onchange="updateProgress()">
+                    <label for="competitors"><strong>Competitor analysis:</strong> Research 3-5 competitor websites for inspiration and gaps</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="features" onchange="updateProgress()">
+                    <label for="features"><strong>Required features:</strong> Contact forms, booking system, e-commerce, blog, analytics, etc.</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="budget-timeline" onchange="updateProgress()">
+                    <label for="budget-timeline"><strong>Budget & timeline:</strong> Set realistic expectations for scope and delivery</label>
+                </div>
+            </div>
+            
+            <div class="progress-bar">
+                <div class="progress-fill" id="planning-progress" style="width: 0%"></div>
+            </div>
+            <p><strong>Planning Progress:</strong> <span id="planning-percentage">0%</span></p>
+        </div>
+
+        <div id="tech-stack" class="content">
+            <h2>⚡ Technology Stack Options</h2>
+            <p>Choose based on your business needs, technical skills, and long-term goals:</p>
+            
+            <div class="tech-stack">
+                <div class="tech-option" onclick="selectTech(this)">
+                    <h3>🚀 Modern Static Site</h3>
+                    <p><strong>Tech:</strong> Next.js/Nuxt.js + Headless CMS</p>
+                    <div class="pros-cons">
+                        <div class="pros">
+                            <h4>✅ Pros</h4>
+                            <ul>
+                                <li>Lightning fast</li>
+                                <li>Excellent SEO</li>
+                                <li>Low hosting costs</li>
+                                <li>High security</li>
+                            </ul>
+                        </div>
+                        <div class="cons">
+                            <h4>❌ Cons</h4>
+                            <ul>
+                                <li>Steeper learning curve</li>
+                                <li>Less dynamic features</li>
+                                <li>Build process required</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tech-option" onclick="selectTech(this)">
+                    <h3>🎯 Full-Stack Web App</h3>
+                    <p><strong>Tech:</strong> React/Vue + Node.js/Python + Database</p>
+                    <div class="pros-cons">
+                        <div class="pros">
+                            <h4>✅ Pros</h4>
+                            <ul>
+                                <li>Highly interactive</li>
+                                <li>Custom functionality</li>
+                                <li>User authentication</li>
+                                <li>Real-time features</li>
+                            </ul>
+                        </div>
+                        <div class="cons">
+                            <h4>❌ Cons</h4>
+                            <ul>
+                                <li>Complex deployment</li>
+                                <li>Higher hosting costs</li>
+                                <li>More maintenance</li>
+                                <li>Security concerns</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tech-option" onclick="selectTech(this)">
+                    <h3>⚡ WordPress/CMS</h3>
+                    <p><strong>Tech:</strong> WordPress/Drupal + Custom Theme</p>
+                    <div class="pros-cons">
+                        <div class="pros">
+                            <h4>✅ Pros</h4>
+                            <ul>
+                                <li>Easy content management</li>
+                                <li>Lots of plugins</li>
+                                <li>Client-friendly</li>
+                                <li>Quick setup</li>
+                            </ul>
+                        </div>
+                        <div class="cons">
+                            <h4>❌ Cons</h4>
+                            <ul>
+                                <li>Security vulnerabilities</li>
+                                <li>Performance issues</li>
+                                <li>Plugin dependencies</li>
+                                <li>Maintenance overhead</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tech-option" onclick="selectTech(this)">
+                    <h3>🏗️ No-Code/Low-Code</h3>
+                    <p><strong>Tech:</strong> Webflow, Framer, or Custom Code</p>
+                    <div class="pros-cons">
+                        <div class="pros">
+                            <h4>✅ Pros</h4>
+                            <ul>
+                                <li>Visual development</li>
+                                <li>Fast prototyping</li>
+                                <li>Built-in hosting</li>
+                                <li>Designer-friendly</li>
+                            </ul>
+                        </div>
+                        <div class="cons">
+                            <h4>❌ Cons</h4>
+                            <ul>
+                                <li>Limited customization</li>
+                                <li>Vendor lock-in</li>
+                                <li>Monthly costs</li>
+                                <li>Export limitations</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="development" class="content">
+            <h2>💻 Development Best Practices</h2>
+            
+            <div class="checklist">
+                <h3>Core Development Checklist</h3>
+                <div class="checklist-item">
+                    <input type="checkbox" id="responsive" onchange="updateDevProgress()">
+                    <label for="responsive"><strong>Mobile-first responsive design:</strong> Test on real devices, use CSS Grid/Flexbox</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="seo-structure" onchange="updateDevProgress()">
+                    <label for="seo-structure"><strong>SEO structure:</strong> Semantic HTML, proper heading hierarchy, meta tags, schema markup</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="performance" onchange="updateDevProgress()">
+                    <label for="performance"><strong>Performance optimization:</strong> Image optimization, lazy loading, minified assets, CDN</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="accessibility" onchange="updateDevProgress()">
+                    <label for="accessibility"><strong>Accessibility (WCAG):</strong> Alt texts, keyboard navigation, color contrast, screen reader support</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="forms" onchange="updateDevProgress()">
+                    <label for="forms"><strong>Functional forms:</strong> Contact forms, validation, spam protection, email integration</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="analytics" onchange="updateDevProgress()">
+                    <label for="analytics"><strong>Analytics setup:</strong> Google Analytics, conversion tracking, heatmaps</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="security" onchange="updateDevProgress()">
+                    <label for="security"><strong>Security measures:</strong> HTTPS, input sanitization, regular updates, backups</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="testing" onchange="updateDevProgress()">
+                    <label for="testing"><strong>Cross-browser testing:</strong> Chrome, Firefox, Safari, Edge + mobile browsers</label>
+                </div>
+            </div>
+            
+            <div class="progress-bar">
+                <div class="progress-fill" id="dev-progress" style="width: 0%"></div>
+            </div>
+            <p><strong>Development Progress:</strong> <span id="dev-percentage">0%</span></p>
+        </div>
+
+        <div id="performance" class="content">
+            <h2>📊 Performance Targets</h2>
+            <p>Aim for these metrics to ensure a well-functioning business website:</p>
+            
+            <div class="performance-metrics">
+                <div class="metric">
+                    <div class="metric-value">< 3s</div>
+                    <div>Page Load Time</div>
+                    <small>Mobile & Desktop</small>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">> 90</div>
+                    <div>Core Web Vitals</div>
+                    <small>Google PageSpeed</small>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">99.9%</div>
+                    <div>Uptime</div>
+                    <small>Server Reliability</small>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">< 2%</div>
+                    <div>Bounce Rate</div>
+                    <small>From Speed Issues</small>
+                </div>
+            </div>
+            
+            <div class="checklist">
+                <h3>Performance Optimization Checklist</h3>
+                <div class="checklist-item">
+                    <input type="checkbox" id="image-opt">
+                    <label for="image-opt"><strong>Image optimization:</strong> WebP format, proper sizing, lazy loading</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="caching">
+                    <label for="caching"><strong>Caching strategy:</strong> Browser cache, CDN, server-side caching</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="minification">
+                    <label for="minification"><strong>Code optimization:</strong> Minify CSS/JS, remove unused code</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="hosting">
+                    <label for="hosting"><strong>Quality hosting:</strong> Choose reliable hosting with good performance</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="monitoring">
+                    <label for="monitoring"><strong>Performance monitoring:</strong> Set up alerts for downtime/slow pages</label>
+                </div>
+            </div>
+        </div>
+
+        <div id="launch" class="content">
+            <h2>🚀 Launch & Post-Launch</h2>
+            
+            <div class="checklist">
+                <h3>Pre-Launch Checklist</h3>
+                <div class="checklist-item">
+                    <input type="checkbox" id="domain-ssl">
+                    <label for="domain-ssl"><strong>Domain & SSL:</strong> Purchase domain, configure DNS, install SSL certificate</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="content-review">
+                    <label for="content-review"><strong>Content review:</strong> Proofread all text, check images, test all links</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="legal-pages">
+                    <label for="legal-pages"><strong>Legal pages:</strong> Privacy policy, terms of service, cookies policy</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="search-console">
+                    <label for="search-console"><strong>Search engines:</strong> Submit sitemap to Google Search Console, Bing</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="backup-system">
+                    <label for="backup-system"><strong>Backup system:</strong> Automated backups, disaster recovery plan</label>
+                </div>
+            </div>
+            
+            <div class="checklist">
+                <h3>Post-Launch Maintenance</h3>
+                <div class="checklist-item">
+                    <input type="checkbox" id="monitoring-tools">
+                    <label for="monitoring-tools"><strong>Monitoring tools:</strong> Uptime monitoring, error tracking, analytics</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="content-plan">
+                    <label for="content-plan"><strong>Content strategy:</strong> Regular updates, blog posts, SEO improvements</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="security-updates">
+                    <label for="security-updates"><strong>Security updates:</strong> Regular updates, security scans, vulnerability patches</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="performance-reviews">
+                    <label for="performance-reviews"><strong>Performance reviews:</strong> Monthly performance audits, user feedback collection</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabId) {
+            // Hide all content
+            const contents = document.querySelectorAll('.content');
+            contents.forEach(content => content.classList.remove('active'));
+            
+            // Remove active class from all tabs
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Show selected content and activate tab
+            document.getElementById(tabId).classList.add('active');
+            event.target.classList.add('active');
+        }
+        
+        function selectTech(element) {
+            // Remove selected class from all tech options
+            const techOptions = document.querySelectorAll('.tech-option');
+            techOptions.forEach(option => option.classList.remove('selected'));
+            
+            // Add selected class to clicked option
+            element.classList.add('selected');
+        }
+        
+        function updateProgress() {
+            const planningCheckboxes = document.querySelectorAll('#planning input[type="checkbox"]');
+            const checkedBoxes = document.querySelectorAll('#planning input[type="checkbox"]:checked');
+            const percentage = Math.round((checkedBoxes.length / planningCheckboxes.length) * 100);
+            
+            document.getElementById('planning-progress').style.width = percentage + '%';
+            document.getElementById('planning-percentage').textContent = percentage + '%';
+            
+            // Update completed items styling
+            planningCheckboxes.forEach(checkbox => {
+                const item = checkbox.closest('.checklist-item');
+                if (checkbox.checked) {
+                    item.classList.add('completed');
+                } else {
+                    item.classList.remove('completed');
+                }
+            });
+        }
+        
+        function updateDevProgress() {
+            const devCheckboxes = document.querySelectorAll('#development input[type="checkbox"]');
+            const checkedBoxes = document.querySelectorAll('#development input[type="checkbox"]:checked');
+            const percentage = Math.round((checkedBoxes.length / devCheckboxes.length) * 100);
+            
+            document.getElementById('dev-progress').style.width = percentage + '%';
+            document.getElementById('dev-percentage').textContent = percentage + '%';
+            
+            // Update completed items styling
+            devCheckboxes.forEach(checkbox => {
+                const item = checkbox.closest('.checklist-item');
+                if (checkbox.checked) {
+                    item.classList.add('completed');
+                } else {
+                    item.classList.remove('completed');
+                }
+            });
+        }
+        
+        // Add checkbox change listeners for other sections
+        document.addEventListener('DOMContentLoaded', function() {
+            const allCheckboxes = document.querySelectorAll('input[type="checkbox"]');
+            allCheckboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    const item = this.closest('.checklist-item');
+                    if (this.checked) {
+                        item.classList.add('completed');
+                    } else {
+                        item.classList.remove('completed');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+</body>
+</html>
